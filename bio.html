@@ -68,14 +68,34 @@
 										</p>
 									</header>
 									<a href="#" class="image featured"><img src="images/pic06.jpg" alt="" /></a>
-									<p>
-										Commodo id natoque malesuada sollicitudin elit suscipit. Curae suspendisse mauris posuere accumsan massa
-										posuere lacus convallis tellus interdum. Amet nullam fringilla nibh nulla convallis ut venenatis purus
-										lobortis. Auctor etiam porttitor phasellus tempus cubilia ultrices tempor sagittis. Nisl fermentum
-										consequat integer interdum integer purus sapien. Nibh eleifend nulla nascetur pharetra commodo mi augue
-										interdum tellus. Ornare cursus augue feugiat sodales velit lorem. Semper elementum ullamcorper lacinia
-										natoque aenean scelerisque vel lacinia mollis quam sodales congue.
-									</p>
+											<h1 style="color: green">GeeksforGeeks</h1> 
+											<h3>CV</h3> 
+											<div id="adobe-dc-view" style="width: 800px;"></div>
+											<script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+											<script type="text/javascript">
+											document.addEventListener('adobe_dc_view_sdk.ready', function () {
+												var adobeDCView = new AdobeDC.View({
+												clientId: '<<YOUR_CLIENT_ID>>',
+												divId: 'adobe-dc-view',
+												});
+												adobeDCView.previewFile(
+												{
+													content: { location: { url: '<<PDF Location>>' } },
+													metaData: { fileName: '<<PDF File Name>>' },
+												},
+												{
+													embedMode: 'IN_LINE',
+													showDownloadPDF: false,
+													showPrintPDF: false,
+												}
+												);
+											});
+											</script>
+											<!-- <iframe src= 
+													"images/pdf/Aafaque_CV_Havard_Predoc.pdf" 
+													width="800"
+													height="500"> 
+											</iframe> -->
 									<section>
 										<header>
 											<h3>Ultrices tempor sagittis nisl</h3>
