@@ -362,3 +362,40 @@ window.addEventListener('scroll', () => {
         banner.style.opacity = 1 - (scrolled / 600);
     }
 });
+
+// Back to top button
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTop.classList.add('visible');
+    } else {
+        backToTop.classList.remove('visible');
+    }
+});
+
+backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Remove preload
+window.addEventListener('load', function() {
+    setTimeout(() => document.body.classList.remove('is-preload'), 100);
+});
+
+// Fade-in animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.project-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+});
