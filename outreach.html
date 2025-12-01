@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outreach - Aafaque R. Khan</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .outreach-hero {
+            padding: 6rem 0 3rem 0;
+            background: linear-gradient(135deg, rgba(237, 73, 51, 0.1) 0%, rgba(33, 178, 166, 0.1) 100%);
+            text-align: center;
+        }
+
+        .outreach-hero .wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .outreach-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: orangered;
+        }
+
+        .outreach-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            letter-spacing: 0.15em;
+            color: var(--text);
+        }
+
+        .gallery-container {
+            padding: 4rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gallery-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-caption {
+            padding: 1.5rem;
+            text-align: center;
+            background: var(--bg-card);
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-caption h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--text-dim);
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            padding: 1.5rem;
+            user-select: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox-nav:hover {
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-prev {
+            left: 30px;
+        }
+
+        .lightbox-next {
+            right: 30px;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.1rem;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-sm);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 980px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .gallery-item img {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 736px) {
+            .outreach-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .outreach-hero p {
+                font-size: 0.9rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .gallery-item img {
+                height: 280px;
+            }
+
+            .lightbox-nav {
+                font-size: 2rem;
+                width: 50px;
+                height: 50px;
+                padding: 1rem;
+            }
+
+            .lightbox-prev {
+                left: 15px;
+            }
+
+            .lightbox-next {
+                right: 15px;
+            }
+
+            .lightbox-close {
+                font-size: 2rem;
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .lightbox-caption {
+                font-size: 0.9rem;
+                padding: 0.75rem 1.5rem;
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="is-preload">
+    <div id="page-wrapper">
+        <header id="header">
+            <h1><a href="index.html">Aafaque Khan</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.html#banner">Home</a></li>
+                    <li><a href="index.html#one">About</a></li>
+                    <li><a href="index.html#two">Research</a></li>
+                    <li><a href="outreach.html">Outreach</a></li>
+                    <li><a href="index.html#cv">CV</a></li>
+                    <li><a href="index.html#tech-stack">Skills</a></li>
+                    <li><a href="index.html#cta">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="outreach-hero">
+            <div class="wrapper">
+                <div class="inner">
+                    <h1>Outreach & Engagement</h1>
+                    <p>Sharing the wonder of space science with communities worldwide</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="wrapper style1">
+            <div class="gallery-container">
+                <div class="inner">
+                    <div class="gallery-grid">
+                        <div class="gallery-item" data-index="0">
+                            <img src="images/outreach1.jpg" alt="Outreach Image 1">
+                            <div class="gallery-caption">
+                                <h3>Image 1</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="1">
+                            <img src="images/outreach2.jpg" alt="Outreach Image 2">
+                            <div class="gallery-caption">
+                                <h3>Image 2</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="2">
+                            <img src="images/outreach3.jpg" alt="Outreach Image 3">
+                            <div class="gallery-caption">
+                                <h3>Image 3</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="3">
+                            <img src="images/outreach4.jpg" alt="Outreach Image 4">
+                            <div class="gallery-caption">
+                                <h3>Image 4</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="4">
+                            <img src="images/outreach5.jpg" alt="Outreach Image 5">
+                            <div class="gallery-caption">
+                                <h3>Image 5</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="5">
+                            <img src="images/outreach6.jpg" alt="Outreach Image 6">
+                            <div class="gallery-caption">
+                                <h3>Image 6</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="6">
+                            <img src="images/outreach7.jpg" alt="Outreach Image 7">
+                            <div class="gallery-caption">
+                                <h3>Image 7</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="7">
+                            <img src="images/outreach8.jpg" alt="Outreach Image 8">
+                            <div class="gallery-caption">
+                                <h3>Image 8</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="8">
+                            <img src="images/outreach9.jpg" alt="Outreach Image 9">
+                            <div class="gallery-caption">
+                                <h3>Image 9</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="9">
+                            <img src="images/outreach10.jpg" alt="Outreach Image 10">
+                            <div class="gallery-caption">
+                                <h3>Image 10</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="10">
+                            <img src="images/outreach11.jpg" alt="Outreach Image 11">
+                            <div class="gallery-caption">
+                                <h3>Image 11</h3>
+                            </div>
+                        </div>
+
+                        <div class="gallery-item" data-index="11">
+                            <img src="images/outreach12.jpg" alt="Outreach Image 12">
+                            <div class="gallery-caption">
+                                <h3>Image 12</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox -->
+        <div class="lightbox" id="lightbox">
+            <span class="lightbox-close" id="lightbox-close">&times;</span>
+            <span class="lightbox-nav lightbox-prev" id="lightbox-prev">&#10094;</span>
+            <span class="lightbox-nav lightbox-next" id="lightbox-next">&#10095;</span>
+            <div class="lightbox-content">
+                <img id="lightbox-img" src="" alt="">
+                <div class="lightbox-caption" id="lightbox-caption"></div>
+            </div>
+        </div>
+
+        <section id="cta" class="wrapper style2">
+            <div class="inner">
+                <header class="major">
+                    <h2>Interested in Collaboration?</h2>
+                    <p>Open to discussing outreach opportunities and science communication.</p>
+                </header>
+                <ul class="actions special">
+                    <li><a href="index.html#cta" class="button primary">Get in Touch</a></li>
+                    <li><a href="index.html" class="button">Back to Home</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <footer id="footer">
+            <ul class="icons">
+                <li><a href="https://www.linkedin.com/in/aafaquerk/" style="border:0;">LinkedIn</a></li>
+                <li><a href="https://github.com/aafaquerk" style="border:0;">GitHub</a></li>
+                <li><a href="mailto:arkhan@arizona.edu" style="border:0;">Email</a></li>
+            </ul>
+            <ul class="copyright">
+                <li>&copy; 2025 Aafaque R. Khan</li>
+                <li>NASA FINESST Fellow</li>
+                <li>Steward Observatory, University of Arizona</li>
+            </ul>
+        </footer>
+    </div>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Lightbox functionality
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        let currentIndex = 0;
+
+        const images = Array.from(galleryItems).map(item => ({
+            src: item.querySelector('img').src,
+            caption: item.querySelector('h3').textContent
+        }));
+
+        function openLightbox(index) {
+            currentIndex = index;
+            lightboxImg.src = images[index].src;
+            lightboxCaption.textContent = images[index].caption;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % images.length;
+            lightboxImg.src = images[currentIndex].src;
+            lightboxCaption.textContent = images[currentIndex].caption;
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            lightboxImg.src = images[currentIndex].src;
+            lightboxCaption.textContent = images[currentIndex].caption;
+        }
+
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => openLightbox(index));
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxNext.addEventListener('click', showNext);
+        lightboxPrev.addEventListener('click', showPrev);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') showNext();
+            if (e.key === 'ArrowLeft') showPrev();
+        });
+
+        // Gallery items fade-in animation
+        const galleryObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100); // Stagger animation
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        galleryItems.forEach(item => {
+            galleryObserver.observe(item);
+        });
+
+        // Header scroll behavior
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 300) {
+                header.classList.remove('alt');
+            } else {
+                header.classList.add('alt');
+            }
+        });
+    </script>
+</body>
+</html>
