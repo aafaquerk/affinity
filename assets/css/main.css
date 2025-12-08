@@ -457,7 +457,6 @@ body.is-preload #banner:after {
     padding: 6rem 0;
 }
 
-/* Projects section with filters on left */
 .projects-layout {
     display: grid;
     grid-template-columns: 160px 1fr;
@@ -475,13 +474,12 @@ body.is-preload #banner:after {
     margin-left: -1rem;
 }
 
-/* Projects wrapper with navigation buttons */
 .projects-wrapper {
     position: relative;
-    padding: 0 60px; /* Space for buttons */
+    padding: 0 60px; 
     width: 100%;
     overflow: visible;
-    min-width: 0; /* Allow grid item to shrink */
+    min-width: 0; 
 }
 
 .filter-btn {
@@ -509,7 +507,6 @@ body.is-preload #banner:after {
     color: var(--accent);
 }
 
-/* Horizontal scroll container */
 .horizontal-scroll {
     display: flex;
     gap: 20px;
@@ -518,17 +515,15 @@ body.is-preload #banner:after {
     scroll-behavior: smooth;
     padding: 20px 0;
     width: 100%;
-    min-width: 0; /* Allow flex container to shrink */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
+    min-width: 0; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
 }
 
 .horizontal-scroll::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    display: none;
 }
 
-
-/* Scroll navigation buttons */
 .scroll-btn {
     position: absolute;
     top: 50%;
@@ -581,13 +576,10 @@ body.is-preload #banner:after {
     border-radius: 2px;
 }
 
-/* Alternative solid color progress bar */
 .scroll-progress-fill {
     background: orangered;
 }
 
-
-/* Responsive design */
 @media (max-width: 980px) {
     .projects-layout {
         grid-template-columns: 1fr;
@@ -656,7 +648,7 @@ body.is-preload #banner:after {
 .research-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This fills the space but may crop */
+    object-fit: cover; 
     object-position: center;
     border-radius: 0;
     display: block;
@@ -685,11 +677,11 @@ body.is-preload #banner:after {
     line-height: 1.7;
     color: var(--text-dim);
     letter-spacing: 0.05em;
-    margin-bottom: 1.5rem; /* Add space before the button */
+    margin-bottom: 1.5rem;
 }
 
 .research-content .button {
-    margin-top: auto; /* Pushes button to bottom if you want that */
+    margin-top: auto;
 }
 
 .timeline {
@@ -699,7 +691,6 @@ body.is-preload #banner:after {
     padding: 2rem 0;
 }
 
-/* Center line */
 .timeline::before {
     content: '';
     position: absolute;
@@ -727,7 +718,6 @@ body.is-preload #banner:after {
     transform: translateY(0);
 }
 
-/* Alternate left-right */
 .timeline-item:nth-child(odd) .timeline-card {
     margin-left: auto;
     margin-right: 0;
@@ -900,7 +890,6 @@ body.is-preload #banner:after {
     color: var(--text-dim);
 }
 
-/* Expand indicator */
 .timeline-card::after {
     content: '▼';
     position: absolute;
@@ -957,7 +946,6 @@ body.is-preload #banner:after {
 
 .tech-categories {
     display: grid;
-    /* Optical (col 1) < Programming (col 2) < Mechanical (col 3) */
     grid-template-columns: 2fr 3fr 1fr;
     gap: 1rem;
     margin-top: 3rem;
@@ -1015,7 +1003,6 @@ body.is-preload #banner:after {
 }
 
 .tech-grid {
-    /* Vertical list for Optical and Mechanical categories */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -1092,14 +1079,12 @@ body.is-preload #banner:after {
     flex-shrink: 0;
 }
 
-/* Header icon SVG sizing so Telescope/Laptop/Gear render consistently */
 .tech-category-header .tech-icon svg {
     width: 1.5em;
     height: 1.5em;
     display: block;
 }
 
-/* Consistent logo sizing for technology images */
 .tech-logo {
     width: 28px;
     height: 28px;
@@ -1114,11 +1099,6 @@ body.is-preload #banner:after {
     letter-spacing: 0.03em;
 }
 
-/* Remove .tech-symbol styles completely */
-
-/* Remove tech-badge styles */
-/* Remove all tech-bar, tech-progress styles */
-/* Mobile responsive */
 @media screen and (max-width: 980px) {
     .tech-categories {
         grid-template-columns: 1fr;
@@ -1191,6 +1171,22 @@ body.is-preload #banner:after {
 .contact-value a:hover {
     opacity: 0.7;
 }
+
+.contact-icon svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.contact-card:hover .contact-icon svg {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.contact-card:nth-child(1) .contact-icon { color: #EA4335; } /* Email - Red */
+.contact-card:nth-child(2) .contact-icon { color: #0077B5; } /* LinkedIn - Blue */
+.contact-card:nth-child(3) .contact-icon { color: #333; } /* GitHub - Dark */
+.contact-card:nth-child(4) .contact-icon { color: #4285F4; } /* Google Scholar - Blue */
+
 
 #footer {
     padding: 6em 0 4em 0;
@@ -1405,7 +1401,6 @@ ul.actions.special li:first-child {
     padding-left: 0;
 }
 
-/* Focus visibility for keyboard users */
 :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
@@ -1418,12 +1413,10 @@ ul.actions.special li:first-child {
     box-shadow: 0 0 0 4px rgba(237,73,51,0.35);
 }
 
-/* Smooth anchor scroll offset for fixed header */
 section[id] {
     scroll-margin-top: 4.25em;
 }
 
-/* Use shared radii/shadows on cards */
 .research-card,
 .timeline-card,
 .tech-category,
@@ -1438,7 +1431,6 @@ section[id] {
     box-shadow: var(--shadow-md);
 }
 
-/* Prefer reduced motion for users who request it */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation: none !important;
@@ -1447,7 +1439,6 @@ section[id] {
     }
 }
 
-/* Typography polish */
 h2 {
     font-size: 1.75em;
     line-height: 1.4;
@@ -1462,7 +1453,6 @@ h2 {
     }
 }
 
-/* Improve tech badges spacing */
 .tech-item {
     padding: 1rem 1.25rem;
     border-radius: var(--radius-md);
@@ -1471,7 +1461,6 @@ h2 {
     box-shadow: 0 8px 24px rgba(237, 73, 51, 0.2);
 }
 
-/* Ensure images don’t overflow rounded parents */
 .research-image img {
     border-radius: 0;
     display: block;
